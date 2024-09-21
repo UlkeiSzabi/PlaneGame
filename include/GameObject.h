@@ -8,8 +8,12 @@ class GameObject {
 public:
     GameObject(){}
 
-    sf::Sprite getShape() const {
+    sf::Sprite& getShape() {
         return shape;
+    }
+
+    const sf::Sprite& getShape() const {
+        return shape; // For read-only access
     }
 
     void setTexture(const sf::Texture& texture) {

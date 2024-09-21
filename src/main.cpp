@@ -5,11 +5,11 @@
 
 int main() {
     // Create a window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Simple 2D Game");
+    sf::RenderWindow window(sf::VideoMode(1200, 800), "Simple 2D Game");
 
     // Create player object
     Player player;
-    player.setPosition(400, 300); // Start in the center of the window
+    player.setPosition(100, 300); // Start in the center of the window
     sf::Texture playerTexture;
     if (!playerTexture.loadFromFile("resources/enemy.png")) {
         std::cerr << "Error loading texture!" << std::endl;
