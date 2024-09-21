@@ -16,6 +16,7 @@ FetchContent_MakeAvailable(SFML)
 add_executable(PlaneGame src/main.cpp)
 target_link_libraries(PlaneGame PRIVATE sfml-graphics sfml-audio sfml-network sfml-system sfml-window)
 target_compile_features(PlaneGame PRIVATE cxx_std_17)
+target_include_directories(PlaneGame PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 if(WIN32)
     add_custom_command(
