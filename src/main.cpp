@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 #include "Player.h"
+#include "resources.h"
 #include <iostream>
 
 int main() {
@@ -8,26 +9,17 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(1200, 800), "Simple 2D Game");
 
     sf::Texture playerTexture;
-    // if (!playerTexture.loadFromFile("resources/player.png")) {
-    //     std::cerr << "Error loading texture!" << std::endl;
-    //     return -1;
-    // }
-
     sf::Texture obstacleTexture;
-    // if (!obstacleTexture.loadFromFile("resources/obstacle.png")) {
-    //     std::cerr << "Error loading texture!" << std::endl;
-    //     return -1;
-    // }
 
     // Create player object
     Player player;
     player.setPosition(100, 300); // Start in the center of the window
-    player.setTexture(102);
+    player.setTexture(IDR_IMAGE_PLAYER);
 
     // Create a second object (obstacle)
     GameObject obstacle;
     obstacle.setPosition(500, 300); // Position the obstacle
-    obstacle.setTexture(102);
+    obstacle.setTexture(IDR_IMAGE_OBSTACLE);
 
     // Game loop
     while (window.isOpen()) {

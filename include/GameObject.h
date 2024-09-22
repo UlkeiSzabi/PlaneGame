@@ -36,7 +36,7 @@ public:
         shape.move(x, y);
     }
 
-    private:
+private:
     // Function to load texture from a resource
     sf::Texture loadTextureFromResource(int resourceId) {
         // Get a handle to the current module
@@ -80,7 +80,7 @@ public:
         return texture;
     }
 
-    private:
+private:
     sf::Sprite shape;
     sf::Texture texture;
 };
