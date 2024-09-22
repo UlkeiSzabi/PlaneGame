@@ -23,45 +23,66 @@ public:
     void handleInput() {
         // Handle movement
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            getShape().scale(sf::Vector2f(1 - scaleFactor, 1 - scaleFactor));
+            tilt -= scaleFactor;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            getShape().scale(sf::Vector2f(1 + scaleFactor, 1 + scaleFactor)); 
+            tilt += scaleFactor;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) { 
-            if(angle < 45){
-                angle += angleFactor;
-                // getShape().rotate(angleFactor);
-                // std::cout << angle << std::endl;
-            }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && angle < 45) { 
+            angle -= angleFactor;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) { 
-             if(angle > -45){
-                angle -= angleFactor;
-                // getShape().rotate(-1 * angleFactor);
-            }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && angle > -45) { 
+            angle += angleFactor;
         }
 
         getShape().setRotation(angle);
 
+        setScaleWithBoundaries();
+
+        equalize();
+    }
+
+    void setScaleWithBoundaries()
+    {
+        if (getShape().getScale().x > maxScale)
+            getShape().setScale(sf::Vector2f(maxScale, maxScale));
+        else if (getShape().getScale().x < minScale)
+            getShape().setScale(sf::Vector2f(minScale, minScale));
+        else
+            getShape().scale(sf::Vector2f(1 + tilt, 1 + tilt));
+    }
+
+    void equalize()
+    {
         float xComponent = cos(angle * (M_PI / 180.0f));
         float yComponent = sin(angle * (M_PI / 180.0f));
-        
+
         move(0, yComponent * playerSpeed);
 
-        if(angle > 0)
-            angle -= returnFactor;
-        if(angle < 0)
-            angle += returnFactor;
+        if (angle > 0)
+            angle -= angleReturnFactor;
+        if (angle < 0)
+            angle += angleReturnFactor;
+
+        if (tilt > 0)
+            tilt -= tiltReturnFactor;
+        if (tilt < 0)
+            tilt += tiltReturnFactor;
     }
+
 private:
     float playerSpeed = 0.5;
-    float scaleFactor = 0.0005;
+    float scaleFactor = 0.00000015;
     float angleFactor = 0.015;
-    float returnFactor = 0.005;
+
+    float angleReturnFactor = 0.005;
+    float tiltReturnFactor = 0.00000001;
 
     float angle;
     float tilt;
+
+    const float maxScale = 1.2f;
+    const float minScale = 0.15f;
 };
 
 #endif // PLAYER_H
