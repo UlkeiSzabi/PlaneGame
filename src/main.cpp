@@ -7,20 +7,27 @@ int main() {
     // Create a window
     sf::RenderWindow window(sf::VideoMode(1200, 800), "Simple 2D Game");
 
+    sf::Texture playerTexture;
+    // if (!playerTexture.loadFromFile("resources/player.png")) {
+    //     std::cerr << "Error loading texture!" << std::endl;
+    //     return -1;
+    // }
+
+    sf::Texture obstacleTexture;
+    // if (!obstacleTexture.loadFromFile("resources/obstacle.png")) {
+    //     std::cerr << "Error loading texture!" << std::endl;
+    //     return -1;
+    // }
+
     // Create player object
     Player player;
     player.setPosition(100, 300); // Start in the center of the window
-    sf::Texture playerTexture;
-    if (!playerTexture.loadFromFile("resources/enemy.png")) {
-        std::cerr << "Error loading texture!" << std::endl;
-        return -1;
-    }
-    player.setTexture(playerTexture);
+    player.setTexture(102);
 
     // Create a second object (obstacle)
     GameObject obstacle;
     obstacle.setPosition(500, 300); // Position the obstacle
-    obstacle.setTexture(playerTexture);
+    obstacle.setTexture(102);
 
     // Game loop
     while (window.isOpen()) {
