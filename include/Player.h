@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#define IS_IN_RANGE(value, min, max) ((value) >= (min) && (value) <= (max))
 
 class Player : public GameObject {
 public:
@@ -20,22 +21,23 @@ public:
         // Handle movement
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {  
             getShape().scale(sf::Vector2f(1 + scaleFactor, 1 + scaleFactor));
-                        std::cout << "shape down!" << std::endl;
-}
+        }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { 
             getShape().scale(sf::Vector2f(1 - scaleFactor, 1 - scaleFactor)); 
-                        std::cout << "shape up!" << getShape().getScale().x << std::endl;
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) { 
-            move(0, playerSpeed);
+            move(0, -1 * playerSpeed);
+            getShape().rotate(angleFactor);
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) { 
-            move(0, -1 * playerSpeed);
+            move(0, playerSpeed);
+            getShape().rotate(-angleFactor);
         }   
     }
 private:
-    float playerSpeed = 0.5;
+    float playerSpeed = 0.1;
     float scaleFactor = 0.005;
+    float angleFactor = 0.05;
 };
 
 #endif // PLAYER_H

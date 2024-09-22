@@ -1,0 +1,6 @@
+#include <windows.h>
+#include "../include/resources.h"
+
+IDR_IMAGE_OBSTACLE PNG "obstacle.png"
+IDR_IMAGE_PLAYER PNG "player.png"
+IDR_IMAGE_FLAGS PNG "flags.png"

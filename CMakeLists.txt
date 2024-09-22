@@ -13,9 +13,23 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(PlaneGame src/main.cpp)
+# Create a resource file
+set(RESOURCE_FILE "${CMAKE_CURRENT_SOURCE_DIR}/resources/resources.rc")
+
+# Add the resource file to the project
+add_custom_command(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/resources.res"
+    COMMAND windres "${RESOURCE_FILE}" -o "${CMAKE_CURRENT_BINARY_DIR}/resources.o"
+    DEPENDS "${RESOURCE_FILE}"
+    COMMENT "Generating resource file"
+)
+
+# Create the main executable target for the project
+add_executable(PlaneGame src/main.cpp ${RESOURCE_FILE})
+
 target_link_libraries(PlaneGame PRIVATE sfml-graphics sfml-audio sfml-network sfml-system sfml-window)
+
 target_compile_features(PlaneGame PRIVATE cxx_std_17)
+
 target_include_directories(PlaneGame PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 if(WIN32)
