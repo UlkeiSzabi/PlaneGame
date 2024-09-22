@@ -29,29 +29,36 @@ public:
             getShape().scale(sf::Vector2f(1 + scaleFactor, 1 + scaleFactor)); 
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) { 
-            // move(0, -1 * playerSpeed);
             if(angle < 45){
                 angle += angleFactor;
-                getShape().rotate(angleFactor);
+                // getShape().rotate(angleFactor);
+                // std::cout << angle << std::endl;
             }
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) { 
-            // move(0, playerSpeed);
              if(angle > -45){
                 angle -= angleFactor;
-                getShape().rotate(-1 * angleFactor);
+                // getShape().rotate(-1 * angleFactor);
             }
-            // move(0, yComponent * playerSpeed);
-        }   
-        float xComponent = cos(angle);
-        float yComponent = sin(angle);
+        }
+
+        getShape().setRotation(angle);
+
+        float xComponent = cos(angle * (M_PI / 180.0f));
+        float yComponent = sin(angle * (M_PI / 180.0f));
+        
         move(0, yComponent * playerSpeed);
 
+        if(angle > 0)
+            angle -= returnFactor;
+        if(angle < 0)
+            angle += returnFactor;
     }
 private:
-    float playerSpeed = 0.1;
+    float playerSpeed = 0.5;
     float scaleFactor = 0.0005;
-    float angleFactor = 0.05;
+    float angleFactor = 0.015;
+    float returnFactor = 0.005;
 
     float angle;
     float tilt;
