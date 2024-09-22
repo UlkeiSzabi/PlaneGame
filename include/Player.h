@@ -12,8 +12,6 @@
 class Player : public GameObject {
 public:
     Player(){
-        angle = 0;
-        tilt = 0;
     }
 
     bool checkCollision(const GameObject& other) const {
@@ -76,10 +74,10 @@ private:
     float angleFactor = 0.015;
 
     float angleReturnFactor = 0.005;
-    float tiltReturnFactor = 0.00000001;
+    float tiltReturnFactor = 0.00000005;
 
-    float angle;
-    float tilt;
+    float angle = 0;
+    float tilt = 0;
 
     const float maxScale = 1.2f;
     const float minScale = 0.15f;
